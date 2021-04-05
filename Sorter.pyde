@@ -1,13 +1,13 @@
 RANDOM_INTERVAL = 1
 MIN_RANGE = 10
-MAX_RANGE = 50
+MAX_RANGE = 20
 
-VERTICAL_SORT = 1
+VERTICAL_SORT = 0
 
 #low to high or high to low
-INVERSE_SORT = 0
+INVERSE_SORT = 1
 
-MASK = 0
+MASK = 1
 
 # Condition for swapping
 # 0 for red
@@ -18,14 +18,14 @@ CONDITION = 3
 
 def setup():
     global photo
-    photo = loadImage("Assets/EndingThings.png")
+    photo = loadImage("Assets/EndingThings.jpg")
     if MASK:
         global mask
         global originalPhoto
-        originalPhoto = loadImage("Assets/Girl.png")
-        mask = loadImage("Assets/GirlMask.png")
+        originalPhoto = loadImage("Assets/EndingThings.jpg")
+        mask = loadImage("Assets/EndingMask.png")
         mask.loadPixels()
-    size(1024, 814)
+    size(1200, 718)
     frameRate(60)
     photo.loadPixels()
     sortPhoto()
