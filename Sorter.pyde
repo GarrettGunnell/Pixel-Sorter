@@ -1,31 +1,31 @@
 RANDOM_INTERVAL = 1
-MIN_RANGE = 5
-MAX_RANGE = 20
+MIN_RANGE = 10
+MAX_RANGE = 50
 
 VERTICAL_SORT = 1
 
 #low to high or high to low
 INVERSE_SORT = 0
 
-MASK = 1
+MASK = 0
 
 # Condition for swapping
 # 0 for red
 # 1 for green
 # 2 for blue
 # 3 for brightness
-CONDITION = 2
+CONDITION = 3
 
 def setup():
     global photo
-    photo = loadImage("Assets/Girl.png")
+    photo = loadImage("Assets/EndingThings.png")
     if MASK:
         global mask
         global originalPhoto
         originalPhoto = loadImage("Assets/Girl.png")
-        mask = loadImage("Assets/GirlMask2.png")
+        mask = loadImage("Assets/GirlMask.png")
         mask.loadPixels()
-    size(1024, 767)
+    size(1024, 814)
     frameRate(60)
     photo.loadPixels()
     sortPhoto()
@@ -43,6 +43,8 @@ def sortPhoto():
                     segment = floor(random(MIN_RANGE, MAX_RANGE))
                     start = x + y * photo.width
                     stop = x + (y + segment) * photo.width
+                    if stop > x + photo.height * photo.width:
+                        stop = x + photo.height * photo.width
                     bubblesort(start, stop)
                     y += segment
         else:
@@ -50,8 +52,11 @@ def sortPhoto():
                 x = 0
                 while x < photo.width:
                     segment = floor(random(MIN_RANGE, MAX_RANGE))
-                    loc = x + y * photo.width
-                    bubblesort(loc, loc + segment)
+                    start = x + y * photo.width
+                    stop = start + segment
+                    if stop > (y + 1) * photo.width - 1:
+                        stop = ((y + 1) * photo.width) - 1
+                    bubblesort(start, stop)
                     x += segment
     else:
         for i in range(photo.width if VERTICAL_SORT else photo.height):
